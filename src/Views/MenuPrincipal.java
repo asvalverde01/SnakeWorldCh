@@ -4,6 +4,8 @@
  */
 package Views;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author asval
@@ -15,6 +17,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+        cardsContainer.add(new ParticipantesPanel(), "Participantes");
+        cardsContainer.add(new CreditosPanel(), "Creditos");
     }
 
     /**
@@ -26,11 +30,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        cardsContainer = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ParticipantesBtn = new javax.swing.JButton();
         CreditosBtn = new javax.swing.JButton();
-        ParticipantesBtn2 = new javax.swing.JButton();
+        SalirBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -42,13 +47,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1112, 720));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(194, 252, 253));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1112, 720));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        cardsContainer.setLayout(new java.awt.CardLayout());
+
+        mainPanel.setBackground(new java.awt.Color(194, 252, 253));
+        mainPanel.setPreferredSize(new java.awt.Dimension(1112, 720));
+        mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/MenuPrincipal/Snake.jpg"))); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(1280, 1166));
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 557, 720));
+        mainPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 557, 720));
 
         ParticipantesBtn.setBackground(new java.awt.Color(27, 177, 174));
         ParticipantesBtn.setFont(new java.awt.Font("Georgia", 0, 28)); // NOI18N
@@ -62,7 +69,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 ParticipantesBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(ParticipantesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 230, 330, 60));
+        mainPanel.add(ParticipantesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 230, 330, 60));
 
         CreditosBtn.setBackground(new java.awt.Color(27, 177, 174));
         CreditosBtn.setFont(new java.awt.Font("Georgia", 0, 28)); // NOI18N
@@ -76,65 +83,74 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 CreditosBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(CreditosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, 330, 60));
+        mainPanel.add(CreditosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, 330, 60));
 
-        ParticipantesBtn2.setBackground(new java.awt.Color(27, 177, 174));
-        ParticipantesBtn2.setFont(new java.awt.Font("Georgia", 0, 28)); // NOI18N
-        ParticipantesBtn2.setForeground(new java.awt.Color(20, 20, 20));
-        ParticipantesBtn2.setText("Salir");
-        ParticipantesBtn2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ParticipantesBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ParticipantesBtn2.setFocusable(false);
-        ParticipantesBtn2.addActionListener(new java.awt.event.ActionListener() {
+        SalirBtn.setBackground(new java.awt.Color(27, 177, 174));
+        SalirBtn.setFont(new java.awt.Font("Georgia", 0, 28)); // NOI18N
+        SalirBtn.setForeground(new java.awt.Color(20, 20, 20));
+        SalirBtn.setText("Salir");
+        SalirBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        SalirBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SalirBtn.setFocusable(false);
+        SalirBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ParticipantesBtn2ActionPerformed(evt);
+                SalirBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(ParticipantesBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 450, 330, 60));
+        mainPanel.add(SalirBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 450, 330, 60));
 
         jLabel2.setFont(new java.awt.Font("Georgia", 1, 50)); // NOI18N
         jLabel2.setText("Campeonato Snake");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(583, 41, 510, 58));
+        mainPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(583, 41, 510, 58));
 
         jLabel3.setFont(new java.awt.Font("Georgia", 1, 50)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(86, 150, 52));
         jLabel3.setText("Campeonato Snake");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 510, 58));
+        mainPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 510, 58));
+
+        cardsContainer.add(mainPanel, "card2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(cardsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(cardsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ParticipantesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParticipantesBtnActionPerformed
-        // TODO add your handling code here:
+        CardLayout card = (CardLayout) cardsContainer.getLayout();
+        card.show(cardsContainer, "Participantes");
     }//GEN-LAST:event_ParticipantesBtnActionPerformed
 
     private void CreditosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreditosBtnActionPerformed
-        // TODO add your handling code here:
+        CardLayout card = (CardLayout) cardsContainer.getLayout();
+        card.show(cardsContainer, "Creditos");
     }//GEN-LAST:event_CreditosBtnActionPerformed
 
-    private void ParticipantesBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParticipantesBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ParticipantesBtn2ActionPerformed
+    private void SalirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirBtnActionPerformed
+        System.exit(0); // Termina el programa
+    }//GEN-LAST:event_SalirBtnActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreditosBtn;
     private javax.swing.JButton ParticipantesBtn;
-    private javax.swing.JButton ParticipantesBtn2;
+    private javax.swing.JButton SalirBtn;
+    private javax.swing.JPanel cardsContainer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel mainPanel;
     // End of variables declaration//GEN-END:variables
 }
