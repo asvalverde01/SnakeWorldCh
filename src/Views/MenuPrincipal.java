@@ -1,24 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Views;
 
+import Controllers.PanelRegresoListener;
 import java.awt.CardLayout;
 
-/**
- *
- * @author asval
- */
-public class MenuPrincipal extends javax.swing.JFrame {
+public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoListener {
 
     /**
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
-        cardsContainer.add(new ParticipantesPanel(), "Participantes");
-        cardsContainer.add(new CreditosPanel(), "Creditos");
+
+        // Añade el mainPanel al cardsContainer con un nombre único
+        cardsContainer.add(mainPanel, "MenuPrincipal");
+
+        // Creación e inicialización de otros paneles
+        ParticipantesPanel participantesPanel = new ParticipantesPanel();
+        CreditosPanel creditosPanel = new CreditosPanel();
+
+        participantesPanel.setRegresoListener(this);
+        creditosPanel.setRegresoListener(this);
+
+        cardsContainer.add(participantesPanel, "Participantes");
+        cardsContainer.add(creditosPanel, "Creditos");
+    }
+
+    @Override
+    public void onRegreso() {
+        CardLayout card = (CardLayout) cardsContainer.getLayout();
+        card.show(cardsContainer, "MenuPrincipal");
+    }
+
+    public interface PanelRegresoListener {
+
+        void onRegreso();
     }
 
     /**
@@ -128,21 +143,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ParticipantesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParticipantesBtnActionPerformed
-        CardLayout card = (CardLayout) cardsContainer.getLayout();
-        card.show(cardsContainer, "Participantes");
-    }//GEN-LAST:event_ParticipantesBtnActionPerformed
+    private void SalirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirBtnActionPerformed
+        System.exit(0); // Termina el programa
+    }//GEN-LAST:event_SalirBtnActionPerformed
 
     private void CreditosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreditosBtnActionPerformed
         CardLayout card = (CardLayout) cardsContainer.getLayout();
         card.show(cardsContainer, "Creditos");
     }//GEN-LAST:event_CreditosBtnActionPerformed
 
-    private void SalirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirBtnActionPerformed
-        System.exit(0); // Termina el programa
-    }//GEN-LAST:event_SalirBtnActionPerformed
+    private void ParticipantesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParticipantesBtnActionPerformed
+        CardLayout card = (CardLayout) cardsContainer.getLayout();
+        card.show(cardsContainer, "Participantes");
+    }//GEN-LAST:event_ParticipantesBtnActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreditosBtn;
     private javax.swing.JButton ParticipantesBtn;
