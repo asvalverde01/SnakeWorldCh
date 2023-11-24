@@ -1,22 +1,30 @@
 package Views;
 
+import Controllers.Main;
 import Controllers.PanelRegresoListener;
+import Models.ListaDoblementeEnlazada;
 import java.awt.CardLayout;
 
 public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoListener {
 
+    private ListaDoblementeEnlazada listaParticipantes;
+
     /**
      * Creates new form MenuPrincipal
+     *
+     * @param listaParticipantes
      */
-    public MenuPrincipal() {
+    public MenuPrincipal(ListaDoblementeEnlazada listaParticipantes) {
         initComponents();
+        this.listaParticipantes = listaParticipantes;
         this.setLocationRelativeTo(null);
 
         // Añade el mainPanel al cardsContainer con un nombre único
         cardsContainer.add(mainPanel, "MenuPrincipal");
 
         // Creación e inicialización de otros paneles
-        ParticipantesPanel participantesPanel = new ParticipantesPanel();
+        ParticipantesPanel participantesPanel = new ParticipantesPanel(listaParticipantes);
+
         CreditosPanel creditosPanel = new CreditosPanel();
 
         participantesPanel.setRegresoListener(this);

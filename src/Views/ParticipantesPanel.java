@@ -1,36 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Views;
 
 import Controllers.PanelRegresoListener;
+import Models.ListaDoblementeEnlazada;
+import Models.Participante;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultListModel;
 
-/**
- *
- * @author asval
- */
 public class ParticipantesPanel extends javax.swing.JPanel {
-    
+
     private PanelRegresoListener listener;
+    private ListaDoblementeEnlazada listaParticipantes;
 
     /**
      * Creates new form ParticipantesFrame
+     * @param listaParticipantes
      */
-    public ParticipantesPanel() {
+    public ParticipantesPanel(ListaDoblementeEnlazada listaParticipantes) {
         initComponents();
-        
+        this.listaParticipantes = listaParticipantes;
+        initComponents();
+        actualizarListaParticipantes();
+
         regresarBtn.addActionListener((ActionEvent e) -> {
             if (listener != null) {
                 listener.onRegreso(); // Llamar al método onRegreso de la interfaz
             }
         });
     }
-    
+
     // Método para establecer el listener
     public void setRegresoListener(PanelRegresoListener listener) {
         this.listener = listener;
+    }
+
+    private void actualizarListaParticipantes() {
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        for (Participante participante : this.listaParticipantes.getLista()) {
+            System.out.println(participante);
+            modelo.addElement(participante.getNombre() + " " + participante.getApellidos());
+        }
+        participantesJList.setModel(modelo);
     }
 
     /**
@@ -44,6 +53,9 @@ public class ParticipantesPanel extends javax.swing.JPanel {
 
         regresarBtn = new javax.swing.JButton();
         RegistrarParticipanteBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        participantesJList = new javax.swing.JList<>();
+        jugarBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1112, 720));
@@ -66,6 +78,23 @@ public class ParticipantesPanel extends javax.swing.JPanel {
         });
         add(RegistrarParticipanteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 180, 40));
 
+        participantesJList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(participantesJList);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 700, -1));
+
+        jugarBtn.setText("Iniciar Juego");
+        jugarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jugarBtnActionPerformed(evt);
+            }
+        });
+        add(jugarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 140, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Resources/SnakeBackground.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1150, 810));
     }// </editor-fold>//GEN-END:initComponents
@@ -80,10 +109,20 @@ public class ParticipantesPanel extends javax.swing.JPanel {
         registrar.setVisible(true);
     }//GEN-LAST:event_RegistrarParticipanteBtnActionPerformed
 
+    private void jugarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarBtnActionPerformed
+        FrameJuego juego = new FrameJuego();
+        System.out.println("p1");
+        juego.setVisible(true);
+        
+    }//GEN-LAST:event_jugarBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton RegistrarParticipanteBtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jugarBtn;
+    private javax.swing.JList<String> participantesJList;
     private javax.swing.JButton regresarBtn;
     // End of variables declaration//GEN-END:variables
 }

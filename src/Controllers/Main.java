@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.ListaDoblementeEnlazada;
 import Views.MenuPrincipal;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
@@ -8,13 +9,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Main {
+
     public static String url = "jdbc:sqlite:campeonato_snake_db.sqlite";
     public static Connection connect;
+
+    public static ListaDoblementeEnlazada listaParticipantes = DatabaseManager.obtenerParticipantes();
 
     public static void main(String[] args) {
         if (conectarBaseDatos()) {
             if (crearBaseDatos()) {
-                MenuPrincipal menu = new MenuPrincipal();
+                MenuPrincipal menu = new MenuPrincipal(listaParticipantes);
+
                 menu.setVisible(true);
             }
         } else {
@@ -39,6 +44,7 @@ public class Main {
                     + "	id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                     + "	nombre TEXT NOT NULL,\n"
                     + "	apellidos TEXT NOT NULL,\n"
+                    + "	cedula TEXT NOT NULL,\n"
                     + "	email TEXT NOT NULL,\n"
                     + "	fechaNacimiento TEXT NOT NULL,\n"
                     + "	lugarResidencia TEXT NOT NULL,\n"
@@ -65,4 +71,13 @@ public class Main {
             return false;
         }
     }
+
+    public ListaDoblementeEnlazada getListaParticipantes() {
+        return listaParticipantes;
+    }
+
+    public void setListaParticipantes(ListaDoblementeEnlazada listaParticipantes) {
+        this.listaParticipantes = listaParticipantes;
+    }
+
 }

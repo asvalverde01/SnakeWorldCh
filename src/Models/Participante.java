@@ -95,4 +95,8 @@ public class Participante {
         return fechaNacimiento.toString(); // Convierte LocalDate a String
     }
 
+    @Override
+    public String toString() {
+        return nombre + " " + apellidos + " - " + sobrenombre;
+    }
 }
