@@ -43,6 +43,7 @@ public class ParticipantesPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         regresarBtn = new javax.swing.JButton();
+        RegistrarParticipanteBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1112, 720));
@@ -57,6 +58,14 @@ public class ParticipantesPanel extends javax.swing.JPanel {
         });
         add(regresarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 560, 170, 40));
 
+        RegistrarParticipanteBtn.setText("Registrar participante");
+        RegistrarParticipanteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrarParticipanteBtnActionPerformed(evt);
+            }
+        });
+        add(RegistrarParticipanteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 180, 40));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Resources/SnakeBackground.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1150, 810));
     }// </editor-fold>//GEN-END:initComponents
@@ -65,8 +74,15 @@ public class ParticipantesPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_regresarBtnActionPerformed
 
+    private void RegistrarParticipanteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarParticipanteBtnActionPerformed
+        // Registro
+        RegistrarParticipanteFrame registrar = new RegistrarParticipanteFrame();
+        registrar.setVisible(true);
+    }//GEN-LAST:event_RegistrarParticipanteBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RegistrarParticipanteBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton regresarBtn;
     // End of variables declaration//GEN-END:variables

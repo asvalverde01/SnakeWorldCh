@@ -10,6 +10,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
      */
     public MenuPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
 
         // Añade el mainPanel al cardsContainer con un nombre único
         cardsContainer.add(mainPanel, "MenuPrincipal");
