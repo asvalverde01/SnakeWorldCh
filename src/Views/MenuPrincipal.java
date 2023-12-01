@@ -68,7 +68,6 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
         setBackground(new java.awt.Color(194, 252, 253));
         setForeground(new java.awt.Color(194, 252, 253));
         setName("MainFrame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1112, 720));
         setResizable(false);
 
         cardsContainer.setLayout(new java.awt.CardLayout());

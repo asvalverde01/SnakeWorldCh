@@ -8,11 +8,16 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.Random;
 
 public class DatabaseManager {
 
     // Método para agregar un nuevo participante
-    public static void agregarParticipante(Participante participante) {
+    public static int agregarParticipante(Participante participante) {
+        Random random = new Random();
+        int codigo = 1000 + random.nextInt(9000); 
+        participante.setCodigo(codigo);
+        
         String sql = "INSERT INTO participantes (nombre, apellidos, email, fechaNacimiento, lugarResidencia, sobrenombre, codigo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(Main.url); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, participante.getNombre());
@@ -26,6 +31,7 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return codigo;
     }
 
     public static ListaDoblementeEnlazada obtenerParticipantes() {
@@ -39,11 +45,11 @@ public class DatabaseManager {
                 Participante participante = new Participante(
                         rs.getString("nombre"),
                         rs.getString("apellidos"),
-                        null, 
+                        null,
                         rs.getString("email"),
                         rs.getString("lugarResidencia"),
                         rs.getString("sobrenombre"),
-                        fechaNac, 
+                        fechaNac,
                         rs.getInt("codigo")
                 );
                 lista.agregar(participante);

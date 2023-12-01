@@ -4,6 +4,7 @@ import Models.Participante;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import Controllers.DatabaseManager;
+import java.awt.HeadlessException;
 
 public class RegistrarParticipanteFrame extends javax.swing.JFrame {
 
@@ -64,7 +65,6 @@ public class RegistrarParticipanteFrame extends javax.swing.JFrame {
         jLabel9.setText("Nombre:");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(530, 720));
 
         jPanel1.setBackground(new java.awt.Color(0, 255, 102));
         jPanel1.setMinimumSize(new java.awt.Dimension(530, 700));
@@ -207,10 +207,16 @@ public class RegistrarParticipanteFrame extends javax.swing.JFrame {
             LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
             Participante participante = new Participante(nombre, apellidos, cedula, email, residencia, sobrenombre, fechaNacimiento, codigo);
             // TODO Base de datos
-            DatabaseManager.agregarParticipante(participante);
-            JOptionPane.showMessageDialog(this, "Participante registrado con éxito", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            int codigoGenerado = DatabaseManager.agregarParticipante(participante);
 
-        } catch (Exception e) {
+            // Mostrar el código en un JOptionPane
+            JOptionPane.showMessageDialog(this, "El código de participante es: " + codigoGenerado, "Código de Registro", JOptionPane.INFORMATION_MESSAGE);
+
+            JOptionPane.showMessageDialog(this, "Participante registrado con éxito", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            // TODO guardar en la lista local
+
+            // TODO enviar correo con num aleatorio
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Error al registrar el participante: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         this.dispose();

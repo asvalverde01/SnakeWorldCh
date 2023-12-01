@@ -36,8 +36,8 @@ public class ParticipantesPanel extends javax.swing.JPanel {
     private void actualizarListaParticipantes() {
         DefaultListModel<String> modelo = new DefaultListModel<>();
         for (Participante participante : this.listaParticipantes.getLista()) {
-            System.out.println(participante);
-            modelo.addElement(participante.getNombre() + " " + participante.getApellidos());
+            
+            modelo.addElement(participante.toString());
         }
         participantesJList.setModel(modelo);
     }
