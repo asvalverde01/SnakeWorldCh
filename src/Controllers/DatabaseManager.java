@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.ListaDoblementeEnlazada;
 import Models.Participante;
+import Models.Resultado;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,18 +16,21 @@ public class DatabaseManager {
     // Método para agregar un nuevo participante
     public static int agregarParticipante(Participante participante) {
         Random random = new Random();
-        int codigo = 1000 + random.nextInt(9000); 
+        int codigo = 1000 + random.nextInt(9000);
         participante.setCodigo(codigo);
-        
-        String sql = "INSERT INTO participantes (nombre, apellidos, email, fechaNacimiento, lugarResidencia, sobrenombre, codigo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        // Incluye la cédula en la consulta SQL
+        String sql = "INSERT INTO participantes (nombre, apellidos, cedula, email, fechaNacimiento, lugarResidencia, sobrenombre, codigo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
         try (Connection conn = DriverManager.getConnection(Main.url); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, participante.getNombre());
             pstmt.setString(2, participante.getApellidos());
-            pstmt.setString(3, participante.getEmail());
-            pstmt.setString(4, participante.getFechaNacimiento().toString());
-            pstmt.setString(5, participante.getLugarResidencia());
-            pstmt.setString(6, participante.getSobrenombre());
-            pstmt.setInt(7, participante.getCodigo());
+            pstmt.setString(3, participante.getCedula());
+            pstmt.setString(4, participante.getEmail());
+            pstmt.setString(5, participante.getFechaNacimiento().toString());
+            pstmt.setString(6, participante.getLugarResidencia());
+            pstmt.setString(7, participante.getSobrenombre());
+            pstmt.setInt(8, participante.getCodigo()); 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -45,7 +49,7 @@ public class DatabaseManager {
                 Participante participante = new Participante(
                         rs.getString("nombre"),
                         rs.getString("apellidos"),
-                        null,
+                        rs.getString("cedula"),
                         rs.getString("email"),
                         rs.getString("lugarResidencia"),
                         rs.getString("sobrenombre"),
@@ -59,5 +63,20 @@ public class DatabaseManager {
             System.out.println(e.getMessage());
         }
         return lista;
+    }
+
+    public static void guardarResultado(Resultado resultado) {
+        String sql = "INSERT INTO juegos (participanteCedula, puntuacion, fechaHora) VALUES (?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(Main.url); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, resultado.getParticipante().getCedula());
+            pstmt.setInt(2, resultado.getPuntuacion());
+            pstmt.setString(3, resultado.getFechaHora().toString());
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -5,14 +5,18 @@ import Models.ListaDoblementeEnlazada;
 import Models.Participante;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class ParticipantesPanel extends javax.swing.JPanel {
+
+    private Participante participanteSeleccionado;
 
     private PanelRegresoListener listener;
     private ListaDoblementeEnlazada listaParticipantes;
 
     /**
      * Creates new form ParticipantesFrame
+     *
      * @param listaParticipantes
      */
     public ParticipantesPanel(ListaDoblementeEnlazada listaParticipantes) {
@@ -34,10 +38,9 @@ public class ParticipantesPanel extends javax.swing.JPanel {
     }
 
     private void actualizarListaParticipantes() {
-        DefaultListModel<String> modelo = new DefaultListModel<>();
+        DefaultListModel<Participante> modelo = new DefaultListModel<>();
         for (Participante participante : this.listaParticipantes.getLista()) {
-            
-            modelo.addElement(participante.toString());
+            modelo.addElement(participante);
         }
         participantesJList.setModel(modelo);
     }
@@ -78,11 +81,6 @@ public class ParticipantesPanel extends javax.swing.JPanel {
         });
         add(RegistrarParticipanteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 180, 40));
 
-        participantesJList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(participantesJList);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 700, -1));
@@ -110,10 +108,14 @@ public class ParticipantesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_RegistrarParticipanteBtnActionPerformed
 
     private void jugarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarBtnActionPerformed
-        FrameJuego juego = new FrameJuego();
-        System.out.println("p1");
-        juego.setVisible(true);
-        
+        participanteSeleccionado = participantesJList.getSelectedValue();
+        if (participanteSeleccionado != null) {
+            FrameJuego juego = new FrameJuego(participanteSeleccionado);
+            juego.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un participante", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jugarBtnActionPerformed
 
 
@@ -122,7 +124,7 @@ public class ParticipantesPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jugarBtn;
-    private javax.swing.JList<String> participantesJList;
+    private javax.swing.JList<Participante> participantesJList;
     private javax.swing.JButton regresarBtn;
     // End of variables declaration//GEN-END:variables
 }
