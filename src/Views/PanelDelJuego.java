@@ -13,6 +13,7 @@ import javax.swing.*;
 public class PanelDelJuego extends JPanel implements ActionListener {
 
     private Participante participanteActual;
+    private LocalDateTime fechaHoraInicio;
 
     static final int SCREEN_WIDTH = 1000;
     static final int SCREEN_HEIGHT = 700;
@@ -58,6 +59,7 @@ public class PanelDelJuego extends JPanel implements ActionListener {
         running = true;
         timer = new Timer(DELAY, this);
         timer.start();
+        fechaHoraInicio = LocalDateTime.now();
     }
 
     public void paintComponent(Graphics g) {
@@ -177,13 +179,12 @@ public class PanelDelJuego extends JPanel implements ActionListener {
         g.drawString("Usted ha perdido :-(", (SCREEN_WIDTH - metrics2.stringWidth("Usted ha perdido :-(")) / 2, SCREEN_HEIGHT / 2);
 
         if (!running) {
-            LocalDateTime fechaHoraActual = LocalDateTime.now(); // Fecha y hora actuales
+            LocalDateTime fechaHoraFin = LocalDateTime.now(); // Fecha y hora actuales al finalizar el juego
 
-            Resultado resultado = new Resultado(participanteActual, manzanasComidas, fechaHoraActual);
+            Resultado resultado = new Resultado(participanteActual, manzanasComidas, fechaHoraInicio, fechaHoraFin);
 
             // Guardar en base de datos
             DatabaseManager.guardarResultado(resultado);
-            System.out.println(resultado);
         }
     }
 

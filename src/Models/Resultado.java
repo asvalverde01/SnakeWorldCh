@@ -1,21 +1,27 @@
 package Models;
 
-import java.time.LocalDate;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Resultado {
 
     private final Participante participante;
     private final int puntuacion;
-    private final LocalDateTime fechaHora;
+    private final LocalDateTime fechaHoraInicio;
+    private final LocalDateTime fechaHoraFin;
 
-    public Resultado(Participante participante, int puntuacion, LocalDateTime fechaHora) {
+    public Resultado(Participante participante, int puntuacion, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         this.participante = participante;
         this.puntuacion = puntuacion;
-        this.fechaHora = fechaHora;
+        this.fechaHoraInicio = fechaHoraInicio;
+        this.fechaHoraFin = fechaHoraFin;
     }
 
-    
+    // Método para calcular la duración en segundos
+    public long getDuracionEnSegundos() {
+        Duration duration = Duration.between(fechaHoraInicio, fechaHoraFin);
+        return duration.getSeconds();
+    }
 
     // Getters y setters
     public Participante getParticipante() {
@@ -26,8 +32,13 @@ public class Resultado {
         return puntuacion;
     }
 
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
+    public LocalDateTime getFechaHoraInicio() {
+        return fechaHoraInicio;
     }
 
+    public LocalDateTime getFechaHoraFin() {
+        return fechaHoraFin;
+    }
+    
+    
 }

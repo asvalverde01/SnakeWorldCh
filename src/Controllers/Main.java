@@ -55,15 +55,17 @@ public class Main {
             PreparedStatement stmtParticipantes = connect.prepareStatement(sqlParticipantes);
             stmtParticipantes.execute();
 
-            // Crear tabla de juegos (modifica según tus necesidades)
+            // Crear tabla de juegos
             String sqlJuegos = """
-                               CREATE TABLE IF NOT EXISTS juegos (
-                               \tid INTEGER PRIMARY KEY AUTOINCREMENT,
-                               \tparticipanteCedula TEXT NOT NULL,
-                               \tpuntuacion INTEGER NOT NULL,
-                               \tfechaHora TEXT NOT NULL,
-                               \tFOREIGN KEY(participanteCedula) REFERENCES participantes(cedula)
-                               );""";
+                   CREATE TABLE IF NOT EXISTS juegos (
+                   \tid INTEGER PRIMARY KEY AUTOINCREMENT,
+                   \tparticipanteCedula TEXT NOT NULL,
+                   \tpuntuacion INTEGER NOT NULL,
+                   \tfechaHoraInicio TEXT NOT NULL,
+                   \tfechaHoraFin TEXT NOT NULL,
+                   \tduracionEnSegundos INTEGER NOT NULL,
+                   \tFOREIGN KEY(participanteCedula) REFERENCES participantes(cedula)
+                   );""";
             PreparedStatement stmtJuegos = connect.prepareStatement(sqlJuegos);
             stmtJuegos.execute();
 

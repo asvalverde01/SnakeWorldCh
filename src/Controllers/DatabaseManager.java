@@ -30,7 +30,7 @@ public class DatabaseManager {
             pstmt.setString(5, participante.getFechaNacimiento().toString());
             pstmt.setString(6, participante.getLugarResidencia());
             pstmt.setString(7, participante.getSobrenombre());
-            pstmt.setInt(8, participante.getCodigo()); 
+            pstmt.setInt(8, participante.getCodigo());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -66,17 +66,21 @@ public class DatabaseManager {
     }
 
     public static void guardarResultado(Resultado resultado) {
-        String sql = "INSERT INTO juegos (participanteCedula, puntuacion, fechaHora) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO juegos (participanteCedula, puntuacion, fechaHoraInicio, fechaHoraFin, duracionEnSegundos) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(Main.url); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, resultado.getParticipante().getCedula());
             pstmt.setInt(2, resultado.getPuntuacion());
-            pstmt.setString(3, resultado.getFechaHora().toString());
+            pstmt.setString(3, resultado.getFechaHoraInicio().toString());
+            pstmt.setString(4, resultado.getFechaHoraFin().toString());
+            pstmt.setLong(5, resultado.getDuracionEnSegundos());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
 }
+
