@@ -1,6 +1,8 @@
 package Controllers;
 
 import Models.ListaDoblementeEnlazada;
+import Models.Participante;
+import Models.Resultado;
 import Views.MenuPrincipal;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
@@ -13,12 +15,13 @@ public class Main {
     public static String url = "jdbc:sqlite:campeonato_snake_db.sqlite";
     public static Connection connect;
 
-    public static ListaDoblementeEnlazada listaParticipantes = DatabaseManager.obtenerParticipantes();
+    public static ListaDoblementeEnlazada<Participante> listaParticipantes = DatabaseManager.obtenerParticipantes();
+    public static ListaDoblementeEnlazada<Resultado> listaResultados = DatabaseManager.obtenerResultados();
 
     public static void main(String[] args) {
         if (conectarBaseDatos()) {
             if (crearBaseDatos()) {
-                MenuPrincipal menu = new MenuPrincipal(listaParticipantes);
+                MenuPrincipal menu = new MenuPrincipal(listaParticipantes, listaResultados);
 
                 menu.setVisible(true);
             }
@@ -76,12 +79,19 @@ public class Main {
         }
     }
 
-    public ListaDoblementeEnlazada getListaParticipantes() {
+    public ListaDoblementeEnlazada<Participante> getListaParticipantes() {
         return listaParticipantes;
     }
 
-    public void setListaParticipantes(ListaDoblementeEnlazada listaParticipantes) {
+    public void setListaParticipantes(ListaDoblementeEnlazada<Participante> listaParticipantes) {
         this.listaParticipantes = listaParticipantes;
     }
 
+    public ListaDoblementeEnlazada<Resultado> getListaResultados() {
+        return listaResultados;
+    }
+
+    public void setListaResultados(ListaDoblementeEnlazada<Resultado> listaResultados) {
+        this.listaResultados = listaResultados;
+    }
 }

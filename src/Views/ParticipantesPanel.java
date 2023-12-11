@@ -39,8 +39,8 @@ public class ParticipantesPanel extends javax.swing.JPanel {
 
     private void actualizarListaParticipantes() {
         DefaultListModel<Participante> modelo = new DefaultListModel<>();
-        for (Participante participante : this.listaParticipantes.getLista()) {
-            modelo.addElement(participante);
+        for (Object participante : this.listaParticipantes.getLista()) {
+            modelo.addElement((Participante) participante);
         }
         participantesJList.setModel(modelo);
     }
@@ -105,6 +105,15 @@ public class ParticipantesPanel extends javax.swing.JPanel {
         // Registro
         RegistrarParticipanteFrame registrar = new RegistrarParticipanteFrame();
         registrar.setVisible(true);
+
+        // Esperar a que se complete el registro antes de actualizar la lista
+        registrar.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                // Actualizar la lista de participantes después de que se cierre la ventana de registro
+                actualizarListaParticipantes();
+            }
+        });
     }//GEN-LAST:event_RegistrarParticipanteBtnActionPerformed
 
     private void jugarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarBtnActionPerformed

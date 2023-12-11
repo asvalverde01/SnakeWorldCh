@@ -1,6 +1,5 @@
 package Views;
 
-import Controllers.Main;
 import Controllers.PanelRegresoListener;
 import Models.ListaDoblementeEnlazada;
 import java.awt.CardLayout;
@@ -8,15 +7,18 @@ import java.awt.CardLayout;
 public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoListener {
 
     private ListaDoblementeEnlazada listaParticipantes;
+    private ListaDoblementeEnlazada listaResultados;
 
     /**
      * Creates new form MenuPrincipal
      *
      * @param listaParticipantes
+     * @param listaResultados
      */
-    public MenuPrincipal(ListaDoblementeEnlazada listaParticipantes) {
+    public MenuPrincipal(ListaDoblementeEnlazada listaParticipantes, ListaDoblementeEnlazada listaResultados) {
         initComponents();
         this.listaParticipantes = listaParticipantes;
+        this.listaResultados = listaResultados;
         this.setLocationRelativeTo(null);
 
         // Añade el mainPanel al cardsContainer con un nombre único
@@ -24,13 +26,15 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
 
         // Creación e inicialización de otros paneles
         ParticipantesPanel participantesPanel = new ParticipantesPanel(listaParticipantes);
-
+        ResultadosPanel resultadosPanel = new ResultadosPanel(listaResultados);
         CreditosPanel creditosPanel = new CreditosPanel();
 
         participantesPanel.setRegresoListener(this);
+        resultadosPanel.setRegresoListener(this);
         creditosPanel.setRegresoListener(this);
 
         cardsContainer.add(participantesPanel, "Participantes");
+        cardsContainer.add(resultadosPanel, "Resultados");
         cardsContainer.add(creditosPanel, "Creditos");
     }
 
@@ -62,6 +66,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
         SalirBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        ResultadosBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Snake");
@@ -92,7 +97,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
                 ParticipantesBtnActionPerformed(evt);
             }
         });
-        mainPanel.add(ParticipantesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 230, 330, 60));
+        mainPanel.add(ParticipantesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 240, 330, 60));
 
         CreditosBtn.setBackground(new java.awt.Color(27, 177, 174));
         CreditosBtn.setFont(new java.awt.Font("Georgia", 0, 28)); // NOI18N
@@ -106,7 +111,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
                 CreditosBtnActionPerformed(evt);
             }
         });
-        mainPanel.add(CreditosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, 330, 60));
+        mainPanel.add(CreditosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 410, 330, 60));
 
         SalirBtn.setBackground(new java.awt.Color(27, 177, 174));
         SalirBtn.setFont(new java.awt.Font("Georgia", 0, 28)); // NOI18N
@@ -120,7 +125,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
                 SalirBtnActionPerformed(evt);
             }
         });
-        mainPanel.add(SalirBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 450, 330, 60));
+        mainPanel.add(SalirBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 520, 330, 60));
 
         jLabel2.setFont(new java.awt.Font("Georgia", 1, 50)); // NOI18N
         jLabel2.setText("Campeonato Snake");
@@ -130,6 +135,20 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
         jLabel3.setForeground(new java.awt.Color(86, 150, 52));
         jLabel3.setText("Campeonato Snake");
         mainPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 510, 58));
+
+        ResultadosBtn.setBackground(new java.awt.Color(27, 177, 174));
+        ResultadosBtn.setFont(new java.awt.Font("Georgia", 0, 28)); // NOI18N
+        ResultadosBtn.setForeground(new java.awt.Color(20, 20, 20));
+        ResultadosBtn.setText("Resultados");
+        ResultadosBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ResultadosBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ResultadosBtn.setFocusable(false);
+        ResultadosBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResultadosBtnActionPerformed(evt);
+            }
+        });
+        mainPanel.add(ResultadosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 330, 60));
 
         cardsContainer.add(mainPanel, "card2");
 
@@ -165,10 +184,16 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
         card.show(cardsContainer, "Participantes");
     }//GEN-LAST:event_ParticipantesBtnActionPerformed
 
+    private void ResultadosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResultadosBtnActionPerformed
+        CardLayout card = (CardLayout) cardsContainer.getLayout();
+        card.show(cardsContainer, "Resultados");
+    }//GEN-LAST:event_ResultadosBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreditosBtn;
     private javax.swing.JButton ParticipantesBtn;
+    private javax.swing.JButton ResultadosBtn;
     private javax.swing.JButton SalirBtn;
     private javax.swing.JPanel cardsContainer;
     private javax.swing.JLabel jLabel1;

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 public class DatabaseManager {
@@ -82,5 +83,60 @@ public class DatabaseManager {
         }
     }
 
-}
+    public static ListaDoblementeEnlazada<Resultado> obtenerResultados() {
+        String sql = "SELECT * FROM juegos";
+        ListaDoblementeEnlazada<Resultado> lista = new ListaDoblementeEnlazada<>();
 
+        try (Connection conn = DriverManager.getConnection(Main.url); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                LocalDateTime fechaHoraInicio = LocalDateTime.parse(rs.getString("fechaHoraInicio"));
+                LocalDateTime fechaHoraFin = LocalDateTime.parse(rs.getString("fechaHoraFin"));
+
+                Resultado resultado;
+                resultado = new Resultado(
+                        rs.getString("participanteCedula"),
+                        rs.getInt("puntuacion"),
+                        fechaHoraInicio,
+                        fechaHoraFin,
+                        rs.getLong("duracionEnSegundos")
+                );
+                lista.agregar(resultado);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lista;
+    }
+
+    public static Participante obtenerParticipantePorCedula(String cedula) {
+        String sql = "SELECT * FROM participantes WHERE cedula = ?";
+        Participante participante = null;
+
+        try (Connection conn = DriverManager.getConnection(Main.url); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, cedula);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                LocalDate fechaNac = LocalDate.parse(rs.getString("fechaNacimiento"));
+                participante = new Participante(
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getString("cedula"),
+                        rs.getString("email"),
+                        rs.getString("lugarResidencia"),
+                        rs.getString("sobrenombre"),
+                        fechaNac,
+                        rs.getInt("codigo")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return participante;
+    }
+
+}

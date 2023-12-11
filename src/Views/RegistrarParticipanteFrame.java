@@ -4,6 +4,7 @@ import Models.Participante;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import Controllers.DatabaseManager;
+import Controllers.Main;
 import java.awt.HeadlessException;
 
 public class RegistrarParticipanteFrame extends javax.swing.JFrame {
@@ -214,6 +215,7 @@ public class RegistrarParticipanteFrame extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Participante registrado con éxito", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
             // TODO guardar en la lista local
+            Main.listaParticipantes.agregar(participante);
 
             // TODO enviar correo con num aleatorio
         } catch (HeadlessException e) {
