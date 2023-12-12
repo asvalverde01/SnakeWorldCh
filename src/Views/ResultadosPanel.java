@@ -99,7 +99,7 @@ public class ResultadosPanel extends javax.swing.JPanel {
         });
         resultsScrollPane.setViewportView(resultadosTable);
 
-        add(resultsScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, -1, -1));
+        add(resultsScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 820, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Resources/SnakeBackground.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1150, 810));

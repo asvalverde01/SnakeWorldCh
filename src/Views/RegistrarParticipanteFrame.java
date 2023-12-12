@@ -9,6 +9,8 @@ import java.awt.HeadlessException;
 
 public class RegistrarParticipanteFrame extends javax.swing.JFrame {
 
+    Participante participante;
+
     /**
      * Creates new form RegistrarParticipante
      */
@@ -206,7 +208,7 @@ public class RegistrarParticipanteFrame extends javax.swing.JFrame {
             int codigo = 0;
 
             LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
-            Participante participante = new Participante(nombre, apellidos, cedula, email, residencia, sobrenombre, fechaNacimiento, codigo);
+            this.participante = new Participante(nombre, apellidos, cedula, email, residencia, sobrenombre, fechaNacimiento, codigo);
             // TODO Base de datos
             int codigoGenerado = DatabaseManager.agregarParticipante(participante);
 
@@ -224,6 +226,10 @@ public class RegistrarParticipanteFrame extends javax.swing.JFrame {
         this.dispose();
 
     }//GEN-LAST:event_registrarBtnActionPerformed
+
+    public Participante getParticipante() {
+        return participante;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

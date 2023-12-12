@@ -1,5 +1,6 @@
 package Views;
 
+import Controllers.CorreoManager;
 import Controllers.PanelRegresoListener;
 import Models.ListaDoblementeEnlazada;
 import Models.Participante;
@@ -110,11 +111,31 @@ public class ParticipantesPanel extends javax.swing.JPanel {
         registrar.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                // Obtener el participante registrado
+                Participante participanteRegistrado = registrar.getParticipante();
+
                 // Actualizar la lista de participantes después de que se cierre la ventana de registro
                 actualizarListaParticipantes();
+
+                // Enviar correo electrónico al participante registrado
+                enviarCorreo(participanteRegistrado);
             }
         });
     }//GEN-LAST:event_RegistrarParticipanteBtnActionPerformed
+
+    private void enviarCorreo(Participante participante) {
+        String destinatario = participante.getEmail();
+        String asunto = "Registro Exitoso";
+        String contenido = "¡Gracias por registrarte! Aquí está tu información:\n\n"
+                + "Nombre: " + participante.getNombre() + "\n"
+                + "Apellidos: " + participante.getApellidos() + "\n"
+                + "Cédula: " + participante.getCedula() + "\n"
+                + "Código: " + participante.getCodigo() + "\n" +
+                "\n\n¡Esperamos que disfrutes del juego!";
+
+        CorreoManager.enviarCorreo(destinatario, asunto, contenido);
+    }
+
 
     private void jugarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarBtnActionPerformed
         participanteSeleccionado = participantesJList.getSelectedValue();
