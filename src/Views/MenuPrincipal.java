@@ -8,6 +8,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
 
     private ListaDoblementeEnlazada listaParticipantes;
     private ListaDoblementeEnlazada listaResultados;
+    ResultadosPanel resultadosPanel;
 
     /**
      * Creates new form MenuPrincipal
@@ -26,7 +27,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
 
         // Creación e inicialización de otros paneles
         ParticipantesPanel participantesPanel = new ParticipantesPanel(listaParticipantes);
-        ResultadosPanel resultadosPanel = new ResultadosPanel(listaResultados);
+        resultadosPanel = new ResultadosPanel(listaResultados);
         CreditosPanel creditosPanel = new CreditosPanel();
 
         participantesPanel.setRegresoListener(this);
@@ -185,6 +186,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements PanelRegresoLis
     }//GEN-LAST:event_ParticipantesBtnActionPerformed
 
     private void ResultadosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResultadosBtnActionPerformed
+        resultadosPanel.actualizarTablaResultados();
         CardLayout card = (CardLayout) cardsContainer.getLayout();
         card.show(cardsContainer, "Resultados");
     }//GEN-LAST:event_ResultadosBtnActionPerformed

@@ -1,6 +1,7 @@
 package Views;
 
 import Controllers.DatabaseManager;
+import Controllers.Main;
 import Models.Participante;
 import Models.Resultado;
 import java.awt.*;
@@ -185,7 +186,24 @@ public class PanelDelJuego extends JPanel implements ActionListener {
 
             // Guardar en base de datos
             DatabaseManager.guardarResultado(resultado);
+            Main.listaResultados.agregar(resultado);
+
+            // Mostrar JOptionPane con resultados
+            mostrarResultados(resultado);
+            
+
+            // Cerrar la ventana del juego
+            Window window = SwingUtilities.getWindowAncestor(this);
+            window.dispose();
         }
+    }
+
+    private void mostrarResultados(Resultado resultado) {
+        String mensaje = "Resultados del juego:\n"
+                + "Puntuación: " + resultado.getPuntuacion() + "\n"
+                + "Duración: " + resultado.getDuracionEnSegundos() + " segundos";
+
+        JOptionPane.showMessageDialog(this, mensaje, "Juego Terminado", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override

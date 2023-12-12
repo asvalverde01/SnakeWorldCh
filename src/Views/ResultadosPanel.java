@@ -33,7 +33,7 @@ public class ResultadosPanel extends javax.swing.JPanel {
         this.listener = listener;
     }
 
-    private void actualizarTablaResultados() {
+    void actualizarTablaResultados() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Participante");
         modelo.addColumn("Puntuación");
