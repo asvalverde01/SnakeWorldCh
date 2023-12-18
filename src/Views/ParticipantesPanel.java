@@ -1,6 +1,7 @@
 package Views;
 
 import Controllers.CorreoManager;
+import Controllers.DatabaseManager;
 import Controllers.PanelRegresoListener;
 import Models.ListaDoblementeEnlazada;
 import Models.Participante;
@@ -60,6 +61,7 @@ public class ParticipantesPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         participantesJList = new javax.swing.JList<>();
         jugarBtn = new javax.swing.JButton();
+        retirarBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1112, 720));
@@ -92,7 +94,15 @@ public class ParticipantesPanel extends javax.swing.JPanel {
                 jugarBtnActionPerformed(evt);
             }
         });
-        add(jugarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 140, -1, -1));
+        add(jugarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, -1, -1));
+
+        retirarBtn.setText("Retiro");
+        retirarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retirarBtnActionPerformed(evt);
+            }
+        });
+        add(retirarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 190, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Resources/SnakeBackground.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1150, 810));
@@ -130,8 +140,8 @@ public class ParticipantesPanel extends javax.swing.JPanel {
                 + "Nombre: " + participante.getNombre() + "\n"
                 + "Apellidos: " + participante.getApellidos() + "\n"
                 + "Cédula: " + participante.getCedula() + "\n"
-                + "Código: " + participante.getCodigo() + "\n" +
-                "\n\n¡Esperamos que disfrutes del juego!";
+                + "Código: " + participante.getCodigo() + "\n"
+                + "\n\n¡Esperamos que disfrutes del juego!";
 
         CorreoManager.enviarCorreo(destinatario, asunto, contenido);
     }
@@ -139,14 +149,65 @@ public class ParticipantesPanel extends javax.swing.JPanel {
 
     private void jugarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarBtnActionPerformed
         participanteSeleccionado = participantesJList.getSelectedValue();
+
         if (participanteSeleccionado != null) {
-            FrameJuego juego = new FrameJuego(participanteSeleccionado);
-            juego.setVisible(true);
+            // Validar que no se haya desvinculado
+            if (!participanteSeleccionado.getSobrenombre().contains("(Desvinculado)")) {
+                FrameJuego juego = new FrameJuego(participanteSeleccionado);
+                juego.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "El participante ha sido desvinculado y no puede jugar", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un participante", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_jugarBtnActionPerformed
+
+    private void retirarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retirarBtnActionPerformed
+        participanteSeleccionado = participantesJList.getSelectedValue();
+
+        if (participanteSeleccionado != null) {
+            // Solicitar al participante que introduzca su código
+            String codigoIngresado = JOptionPane.showInputDialog(
+                    this,
+                    "Introduce tu código para confirmar el retiro:",
+                    "Confirmar Retiro",
+                    JOptionPane.PLAIN_MESSAGE);
+
+            try {
+                // Convertir la entrada del usuario a int
+                int codigoIngresadoInt = Integer.parseInt(codigoIngresado);
+
+                // Verificar si el código ingresado coincide con el código del participante
+                if (codigoIngresadoInt == participanteSeleccionado.getCodigo()) {
+                    // Eliminar participante de la lista
+                    //listaParticipantes.eliminar(participanteSeleccionado);
+                    // Dentro del método donde verificas el código y decides desvincular al participante
+                    DatabaseManager.desvincularParticipante(participanteSeleccionado.getCodigo());
+
+                    // Actualizar la lista de participantes
+                    actualizarListaParticipantes();
+
+                    // Mostrar mensaje de retirada exitosa
+                    JOptionPane.showMessageDialog(this, "Te has retirado del juego exitosamente.", "Retiro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+                    listaParticipantes = DatabaseManager.obtenerParticipantes();
+
+                    // Actualizar la lista de participantes
+                    actualizarListaParticipantes();
+
+                    // Mostrar mensaje de retirada exitosa
+                    JOptionPane.showMessageDialog(this, "Te has retirado del juego exitosamente.", "Retiro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Código incorrecto. Retiro no confirmado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Introduce un valor numérico para el código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un participante", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_retirarBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -156,5 +217,6 @@ public class ParticipantesPanel extends javax.swing.JPanel {
     private javax.swing.JButton jugarBtn;
     private javax.swing.JList<Participante> participantesJList;
     private javax.swing.JButton regresarBtn;
+    private javax.swing.JButton retirarBtn;
     // End of variables declaration//GEN-END:variables
 }

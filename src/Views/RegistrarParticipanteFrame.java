@@ -230,6 +230,8 @@ public class RegistrarParticipanteFrame extends javax.swing.JFrame {
     public Participante getParticipante() {
         return participante;
     }
+    
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

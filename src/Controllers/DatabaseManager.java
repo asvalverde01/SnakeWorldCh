@@ -139,4 +139,15 @@ public class DatabaseManager {
         return participante;
     }
 
+    public static void desvincularParticipante(int codigo) {
+        String sql = "UPDATE participantes SET sobrenombre = sobrenombre || ' (Desvinculado)' WHERE codigo = ?";
+
+        try (Connection conn = DriverManager.getConnection(Main.url); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, codigo);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
