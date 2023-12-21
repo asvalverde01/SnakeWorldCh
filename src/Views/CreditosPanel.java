@@ -32,6 +32,8 @@ public class CreditosPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         regresarBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1112, 720));
@@ -46,6 +48,14 @@ public class CreditosPanel extends javax.swing.JPanel {
         });
         add(regresarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 560, 170, 40));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 42)); // NOI18N
+        jLabel2.setText("Alicia - Mateo - Sebastián");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 560, 80));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 44)); // NOI18N
+        jLabel3.setText("Créditos");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 250, 80));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Resources/SnakeBackground.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1150, 810));
     }// </editor-fold>//GEN-END:initComponents
@@ -57,6 +67,8 @@ public class CreditosPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton regresarBtn;
     // End of variables declaration//GEN-END:variables
 }
